@@ -71,8 +71,10 @@ template Zkrole(nLevels, N) {
     signal signalHashSquared;
     signalHashSquared <== signalHash * signalHash;
 
+    // isInclusion should be bool value
     isInclusion*(1-isInclusion) === 0;
-    // Todo
+
+    // Inclusion or exclusion proof of role.
     component oneOf = OneOf(N);
     component notIn = NotIn(N);
     oneOf.role <== role;
