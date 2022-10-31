@@ -40,7 +40,7 @@ template Zkrole(nLevels, N) {
     signal input treeSiblings[nLevels];
 
     signal input isInclusion;
-    signal[] input candidates;
+    signal input candidates[N];
 
     signal input signalHash;
 
@@ -71,8 +71,19 @@ template Zkrole(nLevels, N) {
     signal signalHashSquared;
     signalHashSquared <== signalHash * signalHash;
 
-    isInclusion*(1-isInclusion) == 0;
+    isInclusion*(1-isInclusion) === 0;
     // Todo
+    component oneOf = OneOf(N);
+    component notIn = NotIn(N);
+    oneOf.role <== role;
+    notIn.role <== role;
+    for (var i=0;i<N;i++) {
+        oneOf.candidates[i] <== candidates[i];
+        notIn.candidates[i] <== candidates[i];
+    }
+    signal target;
+    target <-- isInclusion!=0 ? oneOf.out : notIn.out;
+    target === 1;
 }
 
-component main {public [signalHash, externalNullifier]} = Semaphore(20);
+component main {public [isInclusion, candidates]} = Zkrole(20, 2);
