@@ -7,8 +7,8 @@ async function main() {
     const group = new Group();
     const role = BigInt(1);
     const alice = new Identity(role);
-    const a = poseidon("a");
-    // group.addMember(alice.generateCommitment());
+    group.addMember(alice.generateCommitment());
+    
 }
 
 export default class Identity {
