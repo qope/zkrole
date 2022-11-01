@@ -22,5 +22,6 @@ Smart contractは次の図ようにユーザーのidentity commitmentとrole num
 ![L1](./images/zkrole-L1.jpg)
 
 Circomは次の図ようにユーザーのidentity trapdoorとrole number, Merkle proofをprivate inputとし、role numberがcandidateに含まれるまたは含まれないことの証明ができます。
+
 ![Circom](./images/zkrole-circom.jpg)
 

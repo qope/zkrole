@@ -88,4 +88,4 @@ template Zkrole(nLevels, N) {
     target === 1;
 }
 
-component main {public [isInclusion, candidates]} = Zkrole(20, 2);
+component main {public [isInclusion, candidates]} = Zkrole(20, 10);
