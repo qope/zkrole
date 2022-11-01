@@ -19,9 +19,12 @@ Semaphoreでは、次のタスクはできません。
 
 # 仕組み
 Smart contractは次の図ようにユーザーのidentity commitmentとrole numberのhashをMerkle treeにcommitします。
-![L1](./images/zkrole-L1.jpg)
+![insert](./images/insert.jpg)
+
+またそのときに次のようなproofを提出します。
+![register](./images/register.jpg)
 
 Circomは次の図ようにユーザーのidentity trapdoorとrole number, Merkle proofをprivate inputとし、role numberがcandidateに含まれるまたは含まれないことの証明ができます。
 
-![Circom](./images/zkrole-circom.jpg)
+![verify](./images/verify.jpg)
 
