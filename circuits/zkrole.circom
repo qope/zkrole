@@ -2,7 +2,7 @@ pragma circom 2.0.0;
 
 include "../node_modules/circomlib/circuits/poseidon.circom";
 include "./tree.circom";
-include "./partial.circom";
+include "./count.circom";
 
 template CalculateSecretIdentity() {
     signal input identityTrapdoor;
@@ -45,6 +45,7 @@ template Zkrole(nLevels, N) {
     signal input signalHash;
 
     signal output root;
+    signal output roleCount;
 
     component calculateSecretIdentity = CalculateSecretIdentity();
     calculateSecretIdentity.identityTrapdoor <== identityTrapdoor;
@@ -71,21 +72,13 @@ template Zkrole(nLevels, N) {
     signal signalHashSquared;
     signalHashSquared <== signalHash * signalHash;
 
-    // isInclusion should be bool value
-    isInclusion*(1-isInclusion) === 0;
-
     // Inclusion or exclusion proof of role.
-    component oneOf = OneOf(N);
-    component notIn = NotIn(N);
-    oneOf.role <== role;
-    notIn.role <== role;
+    component count = Count(N);
+    count.role <== role;
     for (var i=0;i<N;i++) {
-        oneOf.candidates[i] <== candidates[i];
-        notIn.candidates[i] <== candidates[i];
+        count.candidates[i] <== candidates[i];
     }
-    signal target;
-    target <-- isInclusion!=0 ? oneOf.out : notIn.out;
-    target === 1;
+    count.out ==> roleCount;
 }
 
 component main {public [isInclusion, candidates]} = Zkrole(20, 10);
