@@ -66,4 +66,4 @@ template Register(nLevels, N) {
     signalHashSquared <== signalHash * signalHash;
 }
 
-component main {public [candidates]} = Register(20, 5);
+component main {public [candidates, externalNullifier, signalHash]} = Register(20, 5);
